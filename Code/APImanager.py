@@ -5,7 +5,7 @@ import requests as rq
 from bs4 import BeautifulSoup
 
 
-urlPoolApi = 'https://pool.api.btc.com/v1/pool/share-history'
+urlPoolApi = 'https://pool.api.btc.com/v1/pool/share-history?dimension=1d?time_strap=yyyy MMM dd?count=10'
 #the url acceses BTC.com Pool API
 rPoolApi = rq.get(urlPoolApi)
 json_data = rPoolApi.json()
