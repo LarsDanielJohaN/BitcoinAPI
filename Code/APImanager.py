@@ -2,8 +2,10 @@
 #Last edited date: 29/10/22
 #Purpose: Gather Pool distribution, Bitcoin price and Transaction fee´s for Bitcoin for research purposes
 import requests as rq
-url = 'pending'
-r = rq.get(url)
-json_data = r.json()
-for key, value in json_data.items()
-    print(key + ' ',value)
+
+
+urlPoolApi = 'https://${pool.api.btc.com}/${v1}/${GET /account/address/update}'
+#the url acceses BTC.com Pool API
+rPoolApi = rq.get(urlPoolApi)
+json_data = rPoolApi.json()
+print(json_data.text())
