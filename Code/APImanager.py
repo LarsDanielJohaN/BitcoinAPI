@@ -9,7 +9,7 @@ import pandas as pd
 def main():
 
     """
-    Specifics of data gathering of user history data can be looked at:
+    Specifics of data gathering of user history data are available at:
     https://docs.pool.btc.com/#/share?id=get-user-history-data
     """
 
