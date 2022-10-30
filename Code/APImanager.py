@@ -24,9 +24,4 @@ def main():
 def getJson(url,params):
     r = rq.get(url,params)
     return r.json();
-
-
-
-
-
 main()
