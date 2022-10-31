@@ -8,12 +8,6 @@ import pandas as pd
 import datetime
 
 def main():
-
-    """
-    Current progress. The program is able to gather data from BTC.com´s api on user history data
-    Currently working on gathering the specific things we require.
-    """
-
     """
     Specifics of data gathering of user history data are available at:
     https://docs.pool.btc.com/#/share?id=get-user-history-data
