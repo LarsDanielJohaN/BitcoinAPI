@@ -5,6 +5,7 @@ import requests as rq
 import calendar as cd
 import time as tm
 import pandas as pd
+import datetime
 
 def main():
 
@@ -13,12 +14,20 @@ def main():
     https://docs.pool.btc.com/#/share?id=get-user-history-data
     """
 
+    #sets initial start date as the 1st of july of 2013
+    initDateTimeStamp = int((datetime.datetime(2003,7,1)).timestamp())
+    print(initDateTimeStamp)
+
     urlPoolApi = 'https://pool.api.btc.com/v1/pool/share-history'
-    paramsPool = {"dimension":"1d","start_ts":1647838478,"count":20}
+    paramsPool = {"dimension":"1d","start_ts":initDateTimeStamp,"count":500}
 
+    temp = getJson(urlPoolApi,paramsPool)
     dataFrame = pd.DataFrame(getJson(urlPoolApi,paramsPool))
+    data = dataFrame['data']
 
-    print(dataFrame.head())
+    print(data.keys())
+    print(data.head())
+
 
 #method that returns a generalized request from a desired API
 def getJson(url,params):
