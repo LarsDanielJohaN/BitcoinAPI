@@ -30,9 +30,9 @@ def main():
     dataFrame = pd.DataFrame(getJson(urlPoolApi,paramsPool))
 
 
-    print(dataFrame['data'].keys())
+    print(dataFrame.keys())
     print(dataFrame.head())
-    print(temp)
+    #print(temp)
 
 
 #method that returns a generalized request from a desired API
