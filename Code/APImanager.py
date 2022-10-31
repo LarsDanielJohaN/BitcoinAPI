@@ -23,15 +23,16 @@ def main():
     initDateTimeStamp = int((datetime.datetime(2003,7,1)).timestamp())
     print(initDateTimeStamp)
 
-    urlPoolApi = 'https://pool.api.btc.com/v1/worker/share-history'
+    urlPoolApi = 'https://pool.api.btc.com/v1/pool/share-history'
     paramsPool = {"dimension":"1d","start_ts":initDateTimeStamp,"count":500}
 
     temp = getJson(urlPoolApi,paramsPool)
     dataFrame = pd.DataFrame(getJson(urlPoolApi,paramsPool))
 
-    print(temp)
-    print(dataFrame.keys())
+
+    print(dataFrame['data'].keys())
     print(dataFrame.head())
+    print(temp)
 
 
 #method that returns a generalized request from a desired API
