@@ -24,15 +24,18 @@ def main():
     #works
     urlP = 'https://blockchain.info/q/hashrate'
     #FINALY WORKS!!!
-    urlC = "https://api.blockchain.info/pools?timespan=5days"
-    temp = getJson(urlC)
+    urlC = "https://api.blockchain.info/pools"
+    #wasnt what I was looking for, lets try again
+    urlD = "https://blockchain.info/rawblock/0000000000000bae09a7a393a8acded75aa67e46cb81f7acaa5ad94f9eacd103"
+    temp = getJson(urlD)
 
-    dataFrame = pd.DataFrame(getJson(urlC), index = [0])
+
+    #talvez obtener el hash? y de esa forma lograr hacer una base de datos con los mas grandes?
+    #dataFrame = pd.DataFrame(getJson(urlD))
 
     print(temp)
-    print(temp['AntPool'])
-    print(dataFrame.keys())
-    print(dataFrame.head())
+    #print(dataFrame.keys())
+    #print(dataFrame.head())
     #print(temp)
 
 
