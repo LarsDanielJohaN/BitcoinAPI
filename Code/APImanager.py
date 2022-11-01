@@ -8,29 +8,27 @@ import pandas as pd
 import datetime
 
 def main():
-    """
-    Specifics of data gathering of user history data are available at:
-    https://docs.pool.btc.com/#/share?id=get-user-history-data
-    """
-
     #sets initial start date as the 1st of july of 2013
     initDateTimeStamp = int((datetime.datetime(2003,7,1)).timestamp())
     print(initDateTimeStamp)
 
-    urlPoolApi = 'https://pool.api.btc.com/v1/pool/share-history'
-    paramsPool = {"dimension":"1d","start_ts":initDateTimeStamp,"count":500}
 
-    temp = getJson(urlPoolApi,paramsPool)
-    dataFrame = pd.DataFrame(getJson(urlPoolApi,paramsPool))
+    #works
+    urlT = 'https://api.blockchain.info/charts/hash-rate?timespan=5weeks&rollingAverage=8hours&format=json'
+    #hasnt worked yet
+    urlP = 'https://api.blockchain.info/charts/pools?timespan=5days'
+    temp = getJson(urlP)
+
+    #dataFrame = pd.DataFrame('data': getJson(urlP))
 
 
-    print(dataFrame.keys())
-    print(dataFrame.head())
-    #print(temp)
+    #print(dataFrame.keys())
+    #print(dataFrame.head())
+    print(temp)
 
 
 #method that returns a generalized request from a desired API
-def getJson(url,params):
-    r = rq.get(url,params)
+def getJson(url):
+    r = rq.get(url)
     return r.json();
 main()
