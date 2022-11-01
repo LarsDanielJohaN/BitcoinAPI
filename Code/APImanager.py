@@ -26,17 +26,34 @@ def main():
     #FINALY WORKS!!!
     urlC = "https://api.blockchain.info/pools"
     #wasnt what I was looking for, lets try again
-    urlD = "https://blockchain.info/rawblock/0000000000000bae09a7a393a8acded75aa67e46cb81f7acaa5ad94f9eacd103"
-    temp = getJson(urlD)
+    block = "0000000000000bae09a7a393a8acded75aa67e46cb81f7acaa5ad94f9eacd103"
+    hashT = "b6f6991d03df0e2e04dafffcd6bc418aac66049e2cd74b80f14ac86db1e3f0da"
+    hashTT = "5b09bbb8d3cb2f8d4edbcf30664419fb7c9deaeeb1f62cb432e7741c80dbe5ba"
+
+    gatherInfoBlocks(block, 300)
+    gatherInforTransaction(hashTT)
 
 
-    #talvez obtener el hash? y de esa forma lograr hacer una base de datos con los mas grandes?
-    #dataFrame = pd.DataFrame(getJson(urlD))
 
-    print(temp)
-    #print(dataFrame.keys())
-    #print(dataFrame.head())
-    #print(temp)
+
+
+def gatherInforTransaction(hash):
+    url = rf'https://api.blockcypher.com/v1/btc/main/txs/{hash}?limit=50&includeHex=true'
+    req = getJson(url)
+    print(req.keys())
+    #print(req['addresses'])
+
+    print(req)
+
+
+def gatherInfoBlocks(block, cant):
+    url = rf"https://blockchain.info/rawblock/{block}"
+    req = getJson(url)
+    dataFrame = pd.DataFrame(req['tx'])
+    print(req.keys())
+    print(dataFrame.keys())
+    print(dataFrame.head())
+    print(dataFrame['hash'][0])
 
 
 #method that returns a generalized request from a desired API
