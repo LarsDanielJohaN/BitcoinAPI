@@ -21,7 +21,7 @@ def main():
     hashTT = "5b09bbb8d3cb2f8d4edbcf30664419fb7c9deaeeb1f62cb432e7741c80dbe5ba"
 
     print("Working on it")
-    data = gatherInfoBlocks(block, 10)
+    data = gatherInfoBlocks(block, 25000)
     data.to_csv('serious_25k_trial1.csv')
     print(data.head())
     print(data.tail())
@@ -40,7 +40,7 @@ def gatherInforTransaction(hash):
     try:
         return [req['data']['vOut']['0']['address'],req['data']['blockHeight']]
     except:
-        return ["Error!",req]
+        return ["Error!"]
 
 #returns a pandas data frame with desired data
 def gatherInfoBlocks(block, cant):
@@ -58,12 +58,12 @@ def gatherInfoBlocks(block, cant):
         #adds new observation
         inforTrans = gatherInforTransaction(tempDataFrame['hash'][0])
 
-        if(inforTrans[0] != "Error!"):
+        if(inforTrans != "Error!"):
             finalDataFrame.loc[len(finalDataFrame.index)] = [inforTrans[0],tempDataFrame['hash'][0],tempDataFrame['time'][0],inforTrans[1],block]
             #sets new block to be checked
             block = req['next_block'][0]
             #because of the API limit of a rate of 3 requests per 5 seconds, it makes a small pause
-            tm.sleep(1)
+            tm.sleep(1.45)
             i+=1
         else:
             cont = False
