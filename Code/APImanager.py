@@ -31,8 +31,8 @@ def main():
     block = "0000000000000bae09a7a393a8acded75aa67e46cb81f7acaa5ad94f9eacd103"
     hashTT = "5b09bbb8d3cb2f8d4edbcf30664419fb7c9deaeeb1f62cb432e7741c80dbe5ba"
 
-    gatherInfoBlocks(block, 300)
-    gatherInforTransaction(hashTT)
+    data = gatherInfoBlocks(block, 6)
+    print(data.head())
 
 """
 In gatherInfoBlocks and gatherInforTransaction I want to beggin from a given block, colect the hash from its first transaction,
@@ -44,25 +44,24 @@ https://www.blockchain.com/explorer/charts/pools
 def gatherInforTransaction(hash):
     url = rf'https://api.blockcypher.com/v1/btc/main/txs/{hash}?limit=50&includeHex=true'
     req = getJson(url)
-    print("TRANSACTION")
-    print(req.keys())
+    return req['addresses'][0]
 
-
-    print(req)
-
-
-
-
-
+#returns a pandas data frame with desired data
 def gatherInfoBlocks(block, cant):
-    url = rf"https://blockchain.info/rawblock/{block}"
-    req = getJson(url)
-    dataFrame = pd.DataFrame(req['tx'])
-    print(req.keys())
-    print(dataFrame.keys())
-    print(dataFrame.head())
-    print(dataFrame['hash'][0])
+    finalDataFrame = pd.DataFrame({'TransactionAddress':[], 'TransactionHash':[],'Time':[]})
 
+    for i in range(0,cant):
+        url = rf"https://blockchain.info/rawblock/{block}"
+        #makes request to blockchain.info
+        req = getJson(url)
+        #converts into data frame temporarelly
+        tempDataFrame = pd.DataFrame(req['tx'])
+        #adds new observation
+        finalDataFrame.loc[len(finalDataFrame.index)] = [gatherInforTransaction(tempDataFrame['hash'][0]),tempDataFrame['hash'][0],tempDataFrame['time'][0]]
+        #sets new block to be checked
+        block = req['next_block'][0]
+
+    return finalDataFrame
 
 
 
@@ -72,7 +71,7 @@ def getJson(url):
     r = rq.get(url)
     return r.json();
 
-def getJson(url,params):
+def getJsonP(url,params):
     r = rq.get(url,params)
     return r.json();
 
