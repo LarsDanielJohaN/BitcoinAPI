@@ -73,6 +73,7 @@ def gatherInfoBlocks(block, cant):
         except:
             #it makes sure that if either the transaction information or the request had an error, it stops the code execution
             print("Error!, stopped on block",block)
+            print(errorExploration(block))
             cont = False
 
     return finalDataFrame
@@ -94,6 +95,22 @@ def getJson(url):
 def getJsonP(url,params):
     r = rq.get(url,params)
     return r.json();
+
+
+
+
+def errorExploration(block):
+    url = rf"https://blockchain.info/rawblock/{block}"
+    json = getJson(url)
+    #converts into data frame temporarelly
+    tempDataFrame = pd.DataFrame(req['tx'])
+    #adds new observation
+    inforTrans = gatherInforTransaction(tempDataFrame['hash'][0])
+    return [inforTrans,json]
+
+
+
+
 main()
 
 
