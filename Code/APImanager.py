@@ -8,24 +8,26 @@ import pandas as pd
 import datetime
 
 """
-might be useful?
-https://binance-docs.github.io/apidocs/spot/en/#hashrate-resale-list-user_data
+Current progress
+Using a blocks data, I´ve been able to access its first transaction hash.
 """
 
 
 def main():
-    #sets initial start date as the 1st of july of 2013
-    initDateTimeStamp = int((datetime.datetime(2003,7,1)).timestamp())
-    print(initDateTimeStamp)
 
 
+    """
+    The following links were test links used to test the code
+    """
     #works
     urlT = 'https://api.blockchain.info/charts/hash-rate?timespan=5weeks&rollingAverage=8hours&format=json'
     #works
     urlP = 'https://blockchain.info/q/hashrate'
-    #FINALY WORKS!!!
-    urlC = "https://api.blockchain.info/pools"
-    #wasnt what I was looking for, lets try again
+
+    """
+    Currently I intend to part from the following block, the hashTT variable is the hash of a block transaction which is
+    being used to test the code.
+    """
     block = "0000000000000bae09a7a393a8acded75aa67e46cb81f7acaa5ad94f9eacd103"
     hashTT = "5b09bbb8d3cb2f8d4edbcf30664419fb7c9deaeeb1f62cb432e7741c80dbe5ba"
 
@@ -34,6 +36,13 @@ def main():
 
 
 
+"""
+In gatherInfoBlocks and gatherInforTransaction I want to beggin from a given block, colect the hash from its first transaction,
+and finally gather its first adress repeating the process for a desired number of blocks.
+This is being done to estimate Bitcoin´s hash-rate distribution inspired on blockchain.com´s methodology explained at:
+https://www.blockchain.com/explorer/charts/pools
+"""
+
 
 
 def gatherInforTransaction(hash):
@@ -41,15 +50,12 @@ def gatherInforTransaction(hash):
     req = getJson(url)
     print("TRANSACTION")
     print(req.keys())
-    #print(req['addresses'])
+
 
     print(req)
 
 
-"""
-In gatherInfoBlocks and gatherInforTransaction I want to beggin from a given block, colect the hash from its first transaction,
-and finally gather its first adress repeating the process for a desired number of blocks. 
-"""
+
 
 
 def gatherInfoBlocks(block, cant):
