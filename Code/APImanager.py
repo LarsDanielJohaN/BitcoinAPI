@@ -9,7 +9,7 @@ import datetime
 
 """
 Current progress
-Using a blocks data, I´ve been able to access its first transaction hash.
+Using a blocks data, I´ve been able to access its first transaction hash and its associated addresses.
 """
 
 
