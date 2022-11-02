@@ -6,23 +6,12 @@ import calendar as cd
 import time as tm
 import pandas as pd
 import datetime
-
 """
 Current progress
 Using a blocks data, I´ve been able to access its first transaction hash and its associated addresses.
 """
 
-
 def main():
-
-
-    """
-    The following links were test links used to test the code
-    """
-    #works
-    urlT = 'https://api.blockchain.info/charts/hash-rate?timespan=5weeks&rollingAverage=8hours&format=json'
-    #works
-    urlP = 'https://blockchain.info/q/hashrate'
 
     """
     Currently I intend to part from the following block, the hashTT variable is the hash of a block transaction which is
@@ -35,7 +24,6 @@ def main():
     data = gatherInfoBlocks(block, 30)
     print(data.head())
     print(data.tail())
-
 
 """
 In gatherInfoBlocks and gatherInforTransaction I want to beggin from a given block, colect the hash from its first transaction,
@@ -71,9 +59,6 @@ def gatherInfoBlocks(block, cant):
 
     return finalDataFrame
 
-
-
-
 #method that returns a generalized request from a desired API
 def getJson(url):
     r = rq.get(url)
@@ -82,5 +67,4 @@ def getJson(url):
 def getJsonP(url,params):
     r = rq.get(url,params)
     return r.json();
-
 main()
