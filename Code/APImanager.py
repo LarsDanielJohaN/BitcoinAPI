@@ -27,7 +27,6 @@ def main():
     urlC = "https://api.blockchain.info/pools"
     #wasnt what I was looking for, lets try again
     block = "0000000000000bae09a7a393a8acded75aa67e46cb81f7acaa5ad94f9eacd103"
-    hashT = "b6f6991d03df0e2e04dafffcd6bc418aac66049e2cd74b80f14ac86db1e3f0da"
     hashTT = "5b09bbb8d3cb2f8d4edbcf30664419fb7c9deaeeb1f62cb432e7741c80dbe5ba"
 
     gatherInfoBlocks(block, 300)
@@ -40,10 +39,17 @@ def main():
 def gatherInforTransaction(hash):
     url = rf'https://api.blockcypher.com/v1/btc/main/txs/{hash}?limit=50&includeHex=true'
     req = getJson(url)
+    print("TRANSACTION")
     print(req.keys())
     #print(req['addresses'])
 
     print(req)
+
+
+"""
+In gatherInfoBlocks and gatherInforTransaction I want to beggin from a given block, colect the hash from its first transaction,
+and finally gather its first adress repeating the process for a desired number of blocks. 
+"""
 
 
 def gatherInfoBlocks(block, cant):
