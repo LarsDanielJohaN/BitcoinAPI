@@ -76,8 +76,14 @@ def gatherInfoBlocks(block, cant):
 
 #method that returns a generalized request from a desired API
 def getJson(url):
-    r = rq.get(url)
-    return r.json();
+    try:
+        r = rq.get(url)
+        res = r.json();
+
+    except:
+        res = "Error!"
+    return res;
+
 
 def getJsonP(url,params):
     r = rq.get(url,params)
