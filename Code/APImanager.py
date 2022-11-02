@@ -32,8 +32,8 @@ def main():
     hashTT = "5b09bbb8d3cb2f8d4edbcf30664419fb7c9deaeeb1f62cb432e7741c80dbe5ba"
 
     print("Working on it")
-    data = gatherInfoBlocks(block, 30)
-    print(data.head())
+    data = gatherInfoBlocks(block, 7)
+    print(data)
 
 
 """
@@ -47,7 +47,6 @@ def gatherInforTransaction(hash):
 
     url = rf"https://api.bitaps.com/btc/v1/blockchain/transaction/{hash}"
     req = getJson(url)
-    print(req)
     print(req.keys())
     return req['data']['vOut']['0']['address']
 
@@ -67,7 +66,7 @@ def gatherInfoBlocks(block, cant):
         #sets new block to be checked
         block = req['next_block'][0]
         #because of the API limit of a rate of 3 requests per 5 seconds, it makes a small pause
-        time.sleep(2)
+        tm.sleep(1.5)
 
     return finalDataFrame
 
