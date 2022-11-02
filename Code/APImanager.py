@@ -34,16 +34,21 @@ https://www.blockchain.com/explorer/charts/pools
 """
 
 def gatherInforTransaction(hash):
-
     url = rf"https://api.bitaps.com/btc/v1/blockchain/transaction/{hash}"
     req = getJson(url)
-    return [req['data']['vOut']['0']['address'],req['data']['blockHeight']]
+    
+    try:
+        return [req['data']['vOut']['0']['address'],req['data']['blockHeight']]
+    except:
+        return ["Error!",req]
 
 #returns a pandas data frame with desired data
 def gatherInfoBlocks(block, cant):
     finalDataFrame = pd.DataFrame({'TransactionAddress':[], 'TransactionHash':[],'Time':[],'BlockHeight':[],'BlockHash':[]})
+    i = 0
+    cont = True
 
-    for i in range(0,cant):
+    while(i<cant and cont):
         print(i)
         url = rf"https://blockchain.info/rawblock/{block}"
         #makes request to blockchain.info
@@ -52,11 +57,16 @@ def gatherInfoBlocks(block, cant):
         tempDataFrame = pd.DataFrame(req['tx'])
         #adds new observation
         inforTrans = gatherInforTransaction(tempDataFrame['hash'][0])
-        finalDataFrame.loc[len(finalDataFrame.index)] = [inforTrans[0],tempDataFrame['hash'][0],tempDataFrame['time'][0],inforTrans[1],block]
-        #sets new block to be checked
-        block = req['next_block'][0]
-        #because of the API limit of a rate of 3 requests per 5 seconds, it makes a small pause
-        tm.sleep(1.45)
+
+        if(inforTrans[0] != "Error!"):
+            finalDataFrame.loc[len(finalDataFrame.index)] = [inforTrans[0],tempDataFrame['hash'][0],tempDataFrame['time'][0],inforTrans[1],block]
+            #sets new block to be checked
+            block = req['next_block'][0]
+            #because of the API limit of a rate of 3 requests per 5 seconds, it makes a small pause
+            tm.sleep(1)
+            i+=1
+        else:
+            cont = False
 
     return finalDataFrame
 
