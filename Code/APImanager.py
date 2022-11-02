@@ -21,8 +21,8 @@ def main():
     hashTT = "5b09bbb8d3cb2f8d4edbcf30664419fb7c9deaeeb1f62cb432e7741c80dbe5ba"
 
     print("Working on it")
-    data = gatherInfoBlocks(block, 7)
-    data.to_csv('trial_1.csv')
+    data = gatherInfoBlocks(block, 6)
+    data.to_csv('trial_dummy_1.csv')
     print(data.head())
     print(data.tail())
 
@@ -41,7 +41,7 @@ def gatherInforTransaction(hash):
 
 #returns a pandas data frame with desired data
 def gatherInfoBlocks(block, cant):
-    finalDataFrame = pd.DataFrame({'TransactionAddress':[], 'TransactionHash':[],'Time':[],'BlockHeight':[]})
+    finalDataFrame = pd.DataFrame({'TransactionAddress':[], 'TransactionHash':[],'Time':[],'BlockHeight':[],'BlockHash':[]})
 
     for i in range(0,cant):
         print(i)
@@ -52,7 +52,7 @@ def gatherInfoBlocks(block, cant):
         tempDataFrame = pd.DataFrame(req['tx'])
         #adds new observation
         inforTrans = gatherInforTransaction(tempDataFrame['hash'][0])
-        finalDataFrame.loc[len(finalDataFrame.index)] = [inforTrans[0],tempDataFrame['hash'][0],tempDataFrame['time'][0],inforTrans[1]]
+        finalDataFrame.loc[len(finalDataFrame.index)] = [inforTrans[0],tempDataFrame['hash'][0],tempDataFrame['time'][0],inforTrans[1],block]
         #sets new block to be checked
         block = req['next_block'][0]
         #because of the API limit of a rate of 3 requests per 5 seconds, it makes a small pause
