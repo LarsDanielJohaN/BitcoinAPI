@@ -68,8 +68,16 @@ def gatherInfoBlocks(block, cant):
     print(dataFrame['hash'][0])
 
 
+
+
+
 #method that returns a generalized request from a desired API
 def getJson(url):
     r = rq.get(url)
     return r.json();
+
+def getJson(url,params):
+    r = rq.get(url,params)
+    return r.json();
+
 main()
