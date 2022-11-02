@@ -101,12 +101,12 @@ def getJsonP(url,params):
 
 def errorExploration(block):
     url = rf"https://blockchain.info/rawblock/{block}"
-    json = getJson(url)
+    req = getJson(url)
     #converts into data frame temporarelly
     tempDataFrame = pd.DataFrame(req['tx'])
     #adds new observation
     inforTrans = gatherInforTransaction(tempDataFrame['hash'][0])
-    return [inforTrans,json]
+    return [inforTrans,req]
 
 
 
