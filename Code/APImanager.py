@@ -37,9 +37,11 @@ def gatherInforTransaction(hash):
     url = rf"https://api.bitaps.com/btc/v1/blockchain/transaction/{hash}"
     req = getJson(url)
 
+    #Utilizes this try except to return any colected data in spite of unexpected errors
     try:
         return [req['data']['vOut']['0']['address'],req['data']['blockHeight']]
     except:
+        print("ErrorOcurred on gatherInforTransaction!")
         return ["Error!"]
 
 #returns a pandas data frame with desired data
@@ -58,14 +60,16 @@ def gatherInfoBlocks(block, cant):
         #adds new observation
         inforTrans = gatherInforTransaction(tempDataFrame['hash'][0])
 
-        if(inforTrans != "Error!"):
+        #Utilizes this try except to return any colected data in spite of unexpected errors
+        try:
             finalDataFrame.loc[len(finalDataFrame.index)] = [inforTrans[0],tempDataFrame['hash'][0],tempDataFrame['time'][0],inforTrans[1],block]
             #sets new block to be checked
             block = req['next_block'][0]
             #because of the API limit of a rate of 3 requests per 5 seconds, it makes a small pause
             tm.sleep(1.45)
             i+=1
-        else:
+        except:
+            print("Error ocurred in gatherInfoBlocks!")
             cont = False
 
     return finalDataFrame
