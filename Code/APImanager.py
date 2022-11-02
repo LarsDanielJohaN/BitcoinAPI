@@ -19,12 +19,12 @@ def main():
     Currently I intend to part from the following block, the hashTT variable is the hash of a block transaction which is
     being used to test the code.
     """
-    block = "0000000000000bae09a7a393a8acded75aa67e46cb81f7acaa5ad94f9eacd103"
+    block = "00000000000000000004c7c784636897ffdb48b087a7a066f16568988b478847"
     hashTT = "5b09bbb8d3cb2f8d4edbcf30664419fb7c9deaeeb1f62cb432e7741c80dbe5ba"
 
     print("Working on it")
     data = gatherInfoBlocks(block, 25000)
-    data.to_csv('serious_25k_trial1.csv')
+    data.to_csv('serious_25k_trial3.csv')
     print(data.head())
     print(data.tail())
 
@@ -71,10 +71,14 @@ def gatherInfoBlocks(block, cant):
             tm.sleep(1.45)
             i+=1
         except:
-            print("Error ocurred in gatherInfoBlocks!")
+            #it makes sure that if either the transaction information or the request had an error, it stops the code execution
+            print("Error!, stopped on block",block)
             cont = False
 
     return finalDataFrame
+
+
+
 
 #method that returns a generalized request from a desired API
 def getJson(url):
@@ -91,3 +95,15 @@ def getJsonP(url,params):
     r = rq.get(url,params)
     return r.json();
 main()
+
+
+
+"""
+On serious_25k_trial1.csv,
+starts from block hash:
+0000000000000bae09a7a393a8acded75aa67e46cb81f7acaa5ad94f9eacd103
+
+ends in block hash:
+
+
+"""

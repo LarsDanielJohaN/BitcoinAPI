@@ -4,7 +4,7 @@
 import calendar as cd
 import time as tm
 import pandas as pd
-import datetime
+from datetime import datetime
 
 def main():
 
@@ -12,7 +12,20 @@ def main():
     print(serious_25k_trial1.head())
     print(serious_25k_trial1.tail())
     lastObs = serious_25k_trial1.loc[[3010]]
-    print(lastObs)
+    firstObs = serious_25k_trial1.loc[[0]]
+    print(serious_25k_trial1.columns)
+
+    print("First observation")
+    print("Date:",datetime.fromtimestamp(int(firstObs['Time'])))
+    print(firstObs['BlockHash'])
+
+
+
+    print("Last observation")
+    print("Date:",datetime.fromtimestamp(int(lastObs['Time'])))
+    print(lastObs['BlockHash'])
+
+    print(serious_25k_trial1['BlockHash'])
 
 
 
