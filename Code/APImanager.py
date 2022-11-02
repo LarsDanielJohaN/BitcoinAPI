@@ -32,8 +32,9 @@ def main():
     hashTT = "5b09bbb8d3cb2f8d4edbcf30664419fb7c9deaeeb1f62cb432e7741c80dbe5ba"
 
     print("Working on it")
-    data = gatherInfoBlocks(block, 7)
-    print(data)
+    data = gatherInfoBlocks(block, 30)
+    print(data.head())
+    print(data.tail())
 
 
 """
@@ -47,12 +48,11 @@ def gatherInforTransaction(hash):
 
     url = rf"https://api.bitaps.com/btc/v1/blockchain/transaction/{hash}"
     req = getJson(url)
-    print(req.keys())
-    return req['data']['vOut']['0']['address']
+    return [req['data']['vOut']['0']['address'],req['data']['blockHeight']]
 
 #returns a pandas data frame with desired data
 def gatherInfoBlocks(block, cant):
-    finalDataFrame = pd.DataFrame({'TransactionAddress':[], 'TransactionHash':[],'Time':[]})
+    finalDataFrame = pd.DataFrame({'TransactionAddress':[], 'TransactionHash':[],'Time':[],'BlockHeight':[]})
 
     for i in range(0,cant):
         print(i)
@@ -62,11 +62,12 @@ def gatherInfoBlocks(block, cant):
         #converts into data frame temporarelly
         tempDataFrame = pd.DataFrame(req['tx'])
         #adds new observation
-        finalDataFrame.loc[len(finalDataFrame.index)] = [gatherInforTransaction(tempDataFrame['hash'][0]),tempDataFrame['hash'][0],tempDataFrame['time'][0]]
+        inforTrans = gatherInforTransaction(tempDataFrame['hash'][0])
+        finalDataFrame.loc[len(finalDataFrame.index)] = [inforTrans[0],tempDataFrame['hash'][0],tempDataFrame['time'][0],inforTrans[1]]
         #sets new block to be checked
         block = req['next_block'][0]
         #because of the API limit of a rate of 3 requests per 5 seconds, it makes a small pause
-        tm.sleep(1.5)
+        tm.sleep(1.45)
 
     return finalDataFrame
 
