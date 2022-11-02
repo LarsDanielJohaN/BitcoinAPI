@@ -9,6 +9,8 @@ import datetime
 """
 Current progress
 Using a blocks data, I´ve been able to access its first transaction hash and its associated addresses.
+A problem, none the less, is that it stops when accesing its 3010th observation.
+
 """
 
 def main():
