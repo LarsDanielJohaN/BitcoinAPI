@@ -34,16 +34,12 @@ def main():
     gatherInfoBlocks(block, 300)
     gatherInforTransaction(hashTT)
 
-
-
 """
 In gatherInfoBlocks and gatherInforTransaction I want to beggin from a given block, colect the hash from its first transaction,
 and finally gather its first adress repeating the process for a desired number of blocks.
 This is being done to estimate Bitcoin´s hash-rate distribution inspired on blockchain.com´s methodology explained at:
 https://www.blockchain.com/explorer/charts/pools
 """
-
-
 
 def gatherInforTransaction(hash):
     url = rf'https://api.blockcypher.com/v1/btc/main/txs/{hash}?limit=50&includeHex=true'
