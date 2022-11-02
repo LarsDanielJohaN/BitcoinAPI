@@ -21,7 +21,7 @@ def main():
     hashTT = "5b09bbb8d3cb2f8d4edbcf30664419fb7c9deaeeb1f62cb432e7741c80dbe5ba"
 
     print("Working on it")
-    data = gatherInfoBlocks(block, 25000)
+    data = gatherInfoBlocks(block, 10)
     data.to_csv('serious_25k_trial1.csv')
     print(data.head())
     print(data.tail())
@@ -36,7 +36,7 @@ https://www.blockchain.com/explorer/charts/pools
 def gatherInforTransaction(hash):
     url = rf"https://api.bitaps.com/btc/v1/blockchain/transaction/{hash}"
     req = getJson(url)
-    
+
     try:
         return [req['data']['vOut']['0']['address'],req['data']['blockHeight']]
     except:
