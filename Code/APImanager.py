@@ -19,7 +19,7 @@ def main():
     Currently I intend to part from the following block, the hashTT variable is the hash of a block transaction which is
     being used to test the code.
     """
-    block = "00000000000000000004c7c784636897ffdb48b087a7a066f16568988b478847"
+    block = "0000000000000bae09a7a393a8acded75aa67e46cb81f7acaa5ad94f9eacd103"
     hashTT = "5b09bbb8d3cb2f8d4edbcf30664419fb7c9deaeeb1f62cb432e7741c80dbe5ba"
 
     print("Working on it")
@@ -73,7 +73,6 @@ def gatherInfoBlocks(block, cant):
         except:
             #it makes sure that if either the transaction information or the request had an error, it stops the code execution
             print("Error!, stopped on block",block)
-            print(errorExploration(block))
             cont = False
 
     return finalDataFrame
