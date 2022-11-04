@@ -1,6 +1,6 @@
 #Created by: Lars Daniel Johansson Nino, Data Science undegradaute student and economics Research Assistant at ITAM
 #Last edited date: 1/11/22
-#Purpose: Gather Pool distribution¡
+#Purpose: Gather Pool distribution
 import requests as rq
 import calendar as cd
 import time as tm
